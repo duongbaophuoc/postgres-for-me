@@ -1,0 +1,19 @@
+postgresql:
+  image:
+    repository: ghcr.io/cloudnativepg/postgresql
+    tag: 16
+  instances: 1
+  storage:
+    size: 20Gi
+    storageClass: standard-rwo
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 500m
+    limits:
+      memory: 2Gi
+      cpu: 1
+  backup:
+    enabled: false
+  monitoring:
+    enablePodMonitor: false

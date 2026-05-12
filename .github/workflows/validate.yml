@@ -1,0 +1,104 @@
+name: "Validate YAML & SQL"
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  validate-yaml:
+    runs-on: ubuntu-latest
+    name: Validate YAML files
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install YAML validator
+        run: sudo apt-get install -y yamllint
+      
+      - name: Validate docker-compose files
+        run: |
+          for file in $(find . -name "docker-compose*.yml" -o -name "docker-compose*.yaml"); do
+            echo "Validating: $file"
+            yamllint -d relaxed "$file"
+          done
+      
+      - name: Validate Kubernetes manifests
+        run: |
+          for file in $(find kubernetes -name "*.yaml" -o -name "*.yml"); do
+            echo "Validating: $file"
+            yamllint -d relaxed "$file"
+          done
+      
+      - name: Validate Kubernetes StatefulSet manifests
+        run: |
+          for file in $(find docs -name "*.yaml" -o -name "*.yml"); do
+            echo "Validating: $file"
+            yamllint -d relaxed "$file"
+          done
+
+  validate-shell-scripts:
+    runs-on: ubuntu-latest
+    name: Validate Shell Scripts
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install ShellCheck
+        run: sudo apt-get install -y shellcheck
+      
+      - name: Check shell scripts
+        run: |
+          for file in $(find . -name "*.sh" -type f); do
+            echo "Checking: $file"
+            shellcheck "$file" || true
+          done
+
+  validate-sql:
+    runs-on: ubuntu-latest
+    name: Check SQL Scripts
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install PostgreSQL
+        run: sudo apt-get install -y postgresql-client
+      
+      - name: Check SQL syntax
+        run: |
+          for file in $(find . -name "*.sql" -type f); do
+            echo "Checking syntax: $file"
+            psql -E -f "$file" > /dev/null 2>&1 || echo "Warning: $file may have syntax issues"
+          done
+
+  validate-markdown:
+    runs-on: ubuntu-latest
+    name: Validate Markdown
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install markdownlint
+        run: sudo npm install -g markdownlint-cli
+      
+      - name: Check markdown files
+        run: |
+          markdownlint '**/*.md' || true
+
+  validate-environment:
+    runs-on: ubuntu-latest
+    name: Validate Configuration Files
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check .env.example exists
+        run: test -f .env.example && echo ".env.example found" || exit 1
+      
+      - name: Check .gitignore exists
+        run: test -f .gitignore && echo ".gitignore found" || exit 1
+      
+      - name: Check LICENSE exists
+        run: test -f LICENSE && echo "LICENSE found" || exit 1
+      
+      - name: Check essential docs exist
+        run: |
+          for doc in README.md SETUP.md ARCHITECTURE.md TROUBLESHOOTING.md; do
+            test -f "$doc" && echo "$doc found" || (echo "$doc missing" && exit 1)
+          done

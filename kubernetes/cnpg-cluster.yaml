@@ -1,0 +1,48 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-production-ha
+  namespace: database
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnativepg/postgresql:16
+  
+  # Resource requests and limits
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
+  
+  # Storage configuration
+  storage:
+    size: 100Gi
+    storageClass: premium-rwo
+    
+  # High Availability and Failover policy
+  # The operator manages Patroni-like behavior automatically
+  bootstrap:
+    initdb:
+      database: commerce_db
+      owner: engineer
+      secret:
+        name: pg-user-creds
+
+  # Backup policy (WAL Archiving to S3)
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://pg-backups-bucket/
+      s3Credentials:
+        accessKeyId:
+          name: aws-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: aws-creds
+          key: SECRET_ACCESS_KEY
+      wal:
+        compression: gzip
+
+  monitoring:
+    enablePodMonitor: true

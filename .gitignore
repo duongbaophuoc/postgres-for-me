@@ -1,0 +1,105 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Backup and restore directories
+backups/
+restore_data/
+wal_archive/
+
+# Container and database data
+*_data/
+pgdata/
+coordinator_data/
+worker*_data/
+
+# Kubernetes
+*.kubeconfig
+kubeconfig
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+*.sublime-workspace
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env/
+.venv
+
+# dbt
+target/
+dbt_packages/
+logs/
+.seldonrc
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Benchmarks
+benchmark_results.log
+pgbench_results/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Git
+.git/
+.gitkeep
+
+# Node/npm (if needed)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Documentation build artifacts
+site/
+docs/_build/
+
+# Sensitive data
+credentials.json
+secrets.json
+*.key
+*.pem
+private/

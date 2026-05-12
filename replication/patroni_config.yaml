@@ -1,0 +1,39 @@
+# Patroni Configuration for 3-node HA Cluster
+scope: postgres_prod_cluster
+name: pg_node_1
+
+etcd:
+  host: 10.0.0.10:2379
+
+bootstrap:
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    retry_timeout: 10
+    maximum_lag_on_failover: 1048576
+    postgresql:
+      use_pg_rewind: true
+      parameters:
+        wal_level: logical
+        hot_standby: "on"
+        max_wal_senders: 10
+        max_replication_slots: 10
+        wal_keep_segments: 8
+
+postgresql:
+  listen: 0.0.0.0:5432
+  connect_address: 10.0.0.11:5432
+  data_dir: /data/postgres
+  bin_dir: /usr/lib/postgresql/16/bin
+  pgpass: /tmp/pgpass
+  authentication:
+    replication:
+      username: replicator
+      password: repl_password
+    superuser:
+      username: postgres
+      password: super_password
+
+tags:
+  nosql: false
+  clonefrom: false

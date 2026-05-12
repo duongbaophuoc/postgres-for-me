@@ -1,0 +1,33 @@
+groups:
+  - name: postgres_infrastructure_alerts
+    rules:
+      # 1. Critical: Replication Lag
+      - alert: PostgresReplicationLag
+        expr: pg_replication_lag_seconds > 30
+        for: 2m
+        labels:
+          severity: critical
+          team: dba
+        annotations:
+          summary: "PostgreSQL high replication lag on {{ $labels.instance }}"
+          description: "Replication lag is {{ $value }}s, exceeding threshold of 30s."
+
+      # 2. Critical: Transaction Wraparound Risk
+      - alert: PostgresTransactionIDWraparound
+        expr: pg_database_wraparound_days < 14
+        for: 1h
+        labels:
+          severity: emergency
+        annotations:
+          summary: "PostgreSQL Transaction ID Wraparound Risk"
+          description: "Database {{ $labels.datname }} will reach wraparound in {{ $value }} days!"
+
+      # 3. Warning: Cache Hit Ratio
+      - alert: PostgresLowCacheHitRatio
+        expr: pg_stat_database_blks_hit / (pg_stat_database_blks_hit + pg_stat_database_blks_read) < 0.95
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL low cache hit ratio"
+          description: "Cache hit ratio is {{ $value }}, below 95%."

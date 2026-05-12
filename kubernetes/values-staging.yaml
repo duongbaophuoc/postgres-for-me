@@ -1,0 +1,23 @@
+postgresql:
+  image:
+    repository: ghcr.io/cloudnativepg/postgresql
+    tag: 16
+  instances: 2
+  storage:
+    size: 50Gi
+    storageClass: premium-rwo
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: 1
+    limits:
+      memory: 4Gi
+      cpu: 2
+  backup:
+    enabled: true
+    barmanObjectStore:
+      destinationPath: s3://pg-backups-staging/
+      wal:
+        compression: gzip
+  monitoring:
+    enablePodMonitor: true
