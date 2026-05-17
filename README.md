@@ -4,7 +4,7 @@
 ### From Relational Databases → Distributed Data Platforms → PostgreSQL Production Infrastructure
 ### Từ Cơ Sở Dữ Liệu Quan Hệ → Nền Tảng Dữ Liệu Phân Tán → Hạ Tầng PostgreSQL Production
 
-[![CI](https://github.com/duongbaophuoc/postgres-for-me/actions/workflows/ci.yml/badge.svg)](https://github.com/duongbaophuoc/postgres-for-me/actions/workflows/ci.yml)
+[![GitHub CI](https://img.shields.io/github/actions/workflow/status/duongbaophuoc/postgres-for-me/ci.yml?logo=github)](https://github.com/duongbaophuoc/postgres-for-me/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.0-blue?logo=postgresql&logoColor=white&color=4169E1)](https://www.postgresql.org/docs/16/index.html)
 [![Stages](https://img.shields.io/badge/Stages-8-green)](docs/)
