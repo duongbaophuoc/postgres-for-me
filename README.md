@@ -4,6 +4,12 @@
 ### From Relational Databases → Distributed Data Platforms → PostgreSQL Production Infrastructure
 ### Từ Cơ Sở Dữ Liệu Quan Hệ → Nền Tảng Dữ Liệu Phân Tán → Hạ Tầng PostgreSQL Production
 
+[![CI](https://github.com/duongbaophuoc/postgres-for-me/actions/workflows/ci.yml/badge.svg)](https://github.com/duongbaophuoc/postgres-for-me/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.0-blue?logo=postgresql&logoColor=white&color=4169E1)](https://www.postgresql.org/docs/16/index.html)
+[![Stages](https://img.shields.io/badge/Stages-8-green)](docs/)
+[![Labs](https://img.shields.io/badge/Labs-8-orange)](labs/)
+[![Diagrams](https://img.shields.io/badge/Diagrams-6-purple)](diagrams/)
 > **A production-grade PostgreSQL engineering roadmap** with 9 stages, 14 lab scripts, automated workflows, and real-world infrastructure examples.
 >
 > **Lộ trình PostgreSQL cấp production** với 9 stages, 14 lab scripts, workflows tự động, và ví dụ hạ tầng thực tế.
