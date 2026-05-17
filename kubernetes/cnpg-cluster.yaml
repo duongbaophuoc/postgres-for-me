@@ -6,7 +6,6 @@ metadata:
 spec:
   instances: 3
   imageName: ghcr.io/cloudnativepg/postgresql:16
-  
   # Resource requests and limits
   resources:
     requests:
@@ -15,12 +14,10 @@ spec:
     limits:
       memory: "2Gi"
       cpu: "1000m"
-  
   # Storage configuration
   storage:
     size: 100Gi
     storageClass: premium-rwo
-    
   # High Availability and Failover policy
   # The operator manages Patroni-like behavior automatically
   bootstrap:
@@ -29,7 +26,6 @@ spec:
       owner: engineer
       secret:
         name: pg-user-creds
-
   # Backup policy (WAL Archiving to S3)
   backup:
     barmanObjectStore:
